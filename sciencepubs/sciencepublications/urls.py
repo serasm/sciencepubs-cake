@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('sendrequest', views.sendRequest)
+    path('sendrequest', views.sendRequest),
+    path('import', views.ImportPublications)
 ]
