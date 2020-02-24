@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'excel30882',
+    'publicationview30890',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
