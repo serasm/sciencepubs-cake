@@ -1,0 +1,16 @@
+{% extends 'publicationview30890/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<h3>{{publicationName}}</h3>
+
+
+<ul>{% for post in Publication%}</ul>
+	<li><a href="">{{post.publicationName}}</li></a>
+		
+{% endfor %}
+</ul>
+{% endblock %}
+ 
+
