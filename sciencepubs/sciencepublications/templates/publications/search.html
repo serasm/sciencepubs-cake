@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+
+{% block content%}
+
+<div class="container">
+
+    <form class="form" action="" method="GET" ALIGN="center">
+        {{ form }}
+        <button class="btn btn-primary btn-sm" type="submit" ALIGN="center">Click me!</button>
+        </fieldset>
+    </form>
+	<br>
+    <table class="table table-bordered table-condensed">
+        <tr>
+            <th>Publication Name</th>
+			<th>Publication ISSN</th>
+			<th>Publication EISSN</th>
+			<th>Publication Second Name</th>
+			<th>Publication Second ISSN</th>
+			<th>Publication Points</th>
+        </tr>
+        {% for object in object_list %}
+        <tr>
+            <td>{{object.publicationName}}</td>
+			<td>{{object.publicationIssn}}</td>
+			<td>{{object.publicationEissn}}</td>
+			<td>{{object.publicationName2}}</td>
+			<td>{{object.publicationIssn2}}</td>
+			<td>{{object.PublicationPoints}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+	
+</div>
+
+{% endblock %}
