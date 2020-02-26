@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'detailView',
     'excel30882',
     'publicationview30890',
     'django.contrib.admin',

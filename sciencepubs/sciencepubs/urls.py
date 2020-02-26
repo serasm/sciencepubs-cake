@@ -20,5 +20,6 @@ urlpatterns = [
     path('', include('sciencepublications.urls')),
     path('excel/', include('excel30882.urls')),
     path('publicationview/', include('publicationview30890.urls')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('detail/', include('detailView.urls'))
 ]
