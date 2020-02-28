@@ -7,17 +7,26 @@ import uuid
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
+    catind = models.IntegerField()
     
     def __str__(self):
-        return f"{self.PublicationCategoryName}"
+        return f"{self.name}"
 
     def validate_name(self, value):
-        qs = Category.object.filter(name__iexact=value)
+        qs = Category.objects.filter(name__iexact=value)
 
         if self.instance:
             qs = qs.exclude(id=self.instance.id)
         if qs.exists():
             raise serializers.ValidationError("The title must be unique")
+
+    def validate_catind(self, value):
+        qs = Category.objects.filter(catind__iexact=value)
+
+        if self.instance:
+            qs = qs.exclude(id=self.instance.id)
+        if qs.exists():
+            raise serializers.ValidationError("The category index must be unique")
 
 
 class Publication(models.Model):
@@ -32,5 +41,5 @@ class Publication(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
 
     def __str__(self):
-        return f"{self.publicationName}"
+        return f"{self.name}"
 
