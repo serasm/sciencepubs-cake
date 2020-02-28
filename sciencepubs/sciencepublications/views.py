@@ -1,20 +1,49 @@
-from django.shortcuts import render
-from django.template import loader
-from django.http import HttpResponse
-import requests
-import json
+from .serializers import PublicationSerializer, CategorySerializer
+from .models import Publication, Category
+from rest_framework import  generics, mixins
+from django.db.models import Q
 
-# Create your views here.
-def index(request):
-    template = loader.get_template('publications/index.html')
-    return HttpResponse(template.render())
+class PublicationPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
+    lookup_field = 'id'
+    serializer_class = PublicationSerializer
 
-def sendRequest(request):
-    URL = "api.elsevier.com/content/search/scopus"
-    PARAMS = {
-        'query': 'all(gene)',
-        'apiKey': '15cc00bb996e844d8f6c871451bbd069'
-    }
-    response = requests.get('https://api.elsevier.com/content/search/scopus?query=all(gene)&apiKey=15cc00bb996e844d8f6c871451bbd069')
-    return HttpResponse(response)
-    #return response
+    def get_queryset(self):
+        qs = Publication.objects.all()
+        query = self.request.GET.get("q")
+        if query is not None:
+            qs = qs.filter(Q(name__icontains=query) | Q(issn__icontains=query)
+                           | Q(eissn__icontains=query) | Q(name2__icontains=query)).distinct()
+
+        return qs
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class PublicationRudView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = PublicationSerializer
+
+    def get_queryset(self):
+        return Publication.objects.all()
+
+class CategoriesPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
+    lookup_field = 'id'
+    serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        qs = Category.objects.all()
+        query = self.request.GET.get("q")
+        if query is not None:
+            qs = qs.filter(Q(name__icontains=query))
+
+        return qs
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class CategoriesRudView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        return  Category.objects.all()

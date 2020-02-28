@@ -1,8 +1,6 @@
-from django.urls import path
-
-from . import views
+from django.conf.urls import url, include
+from django.contrib import admin
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('sendrequest', views.sendRequest)
+    url(r'^api/sciencepublications/', include('sciencepublications.api.urls'))
 ]
