@@ -39,7 +39,7 @@ def importCategoryExcel(request):
   #return HttpResponse(f"Dodano kategorie")
 
 def importPublicationsExcel(request):
-  Publication.objects.all().delete()
+  #Publication.objects.all().delete()
   file_name= 'data.xlsx'
   workbook=xlrd.open_workbook(file_name)
   my_sheet='Czasopisma'
@@ -68,23 +68,30 @@ def importPublicationsExcel(request):
     #a.PublicationPoints=x[7]
     #a.save()
 
-    api_url = "http://127.0.0.1:8000/api/sciencepublications/publications/"
-    data = {'name': x[1],
-            'issn': x[2],
-            'eissn': x[3],
-            'name2': x[4],
-            'issn2': x[5],
-            'eissn2': x[6],
-            'points': x[7]}
-    requests.post(api_url, data=data)
+    categories = []
 
+    api_url = "http://127.0.0.1:8000/api/sciencepublications/publications/"
+    
     i=0
     while i<44:
       if x[8+i]=='x':
-        kategoria=PublicationCategory.objects.get(PublicationCategoryId=kategorieId[i])
-        a.PublicationCategories.add(kategoria)
+        #kategoria=PublicationCategory.objects.get(PublicationCategoryId=kategorieId[i])
+        categories_url = "http://127.0.0.1:8000/api/sciencepublications/categories/?q=%d" % kategorieId[i]
+        kategoria = requests.get(categories_url)
+        #a.PublicationCategories.add(kategoria)
+        categories.append(kategoria)
       i += 1
-    a.save()
+
+    data = {'name': x[1],
+          'issn': x[2],
+          'eissn': x[3],
+          'name2': x[4],
+          'issn2': x[5],
+          'eissn2': x[6],
+          'points': x[7],
+          'categories': categories,}
+    requests.post(api_url, data=data)
+    #a.save()
   #return HttpResponse(f"dodano czasopisma z excela")
 
 def importDataExcel(request):
