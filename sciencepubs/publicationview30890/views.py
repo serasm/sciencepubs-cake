@@ -6,9 +6,7 @@ import requests
 # Create your views here.
 
 def index(request):
-    #publicationview30890 = Publication.objects.all()
-    api_url = "http://127.0.0.1:8000/api/sciencepublications/publications/"
-    publicationview30890 = requests.get(api_url)
+    publicationview30890 = Publication.objects.all()
 
     data = {
     'publicationName': 'Publikacje',
