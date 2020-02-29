@@ -3,13 +3,23 @@
 
 
 {% block content %}
+<h3>Strony</h3>
+<li><a href="../pubssearch/">Wyszukiwanie</li></a>
+<li><a href="../pubcatview/">Kategorie</li></a>
+<li><a href="../detail/">Detail</li></a>
+<li><a href="../pubsreview/">Oceń</li></a>
+
+
+
 <h3>{{publicationName}}</h3>
 
-
 <ul>{% for post in Publication%}</ul>
-	<li><a href="">{{post.publicationName}}</li></a>
-		
+	<li>{{post.publicationName}}</li>
+
+
+
 {% endfor %}
+
 </ul>
 {% endblock %}
  

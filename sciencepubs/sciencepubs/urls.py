@@ -19,9 +19,9 @@ from django.urls import path, include
 from pubssearch30783.views import SearchList
 
 urlpatterns = [
-    path('', include('sciencepublications.urls')),
+    path('basepage/', include('sciencepublications.urls')),
     path('excel/', include('excel30882.urls')),
-    path('publicationview/', include('publicationview30890.urls')),
+    path('', include('publicationview30890.urls')),
     path('admin/', admin.site.urls),
     path('detail/', include('detailView.urls')),
     path('pubssearch/', SearchList.as_view(), name="szukajka"),

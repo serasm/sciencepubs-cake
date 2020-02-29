@@ -19,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -70,9 +70,9 @@
     </todo-panel>
   </component>
   <component name="WindowStateProjectService">
-    <state x="667" y="351" key="com.intellij.ide.util.TipDialog" timestamp="1583006434030">
+    <state x="667" y="351" key="com.intellij.ide.util.TipDialog" timestamp="1583014517697">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="667" y="351" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1583006434030" />
+    <state x="667" y="351" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1583014517697" />
   </component>
 </project>

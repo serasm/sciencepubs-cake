@@ -2,6 +2,8 @@ from .serializers import PublicationSerializer, CategorySerializer
 from excel30882.models import Publication, PublicationCategory
 from rest_framework import  generics, mixins
 from django.db.models import Q
+from django.shortcuts import render
+
 
 class PublicationPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_field = 'id'
@@ -49,3 +51,8 @@ class CategoriesRudView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return  PublicationCategory.objects.all()
+
+def index(request):
+    return render(request, "publications/index.html")
+
+

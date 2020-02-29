@@ -49,3 +49,4 @@ def add_review(request, pub_id):
 
     return render(request, 'reviews/pub_detail.html', {'pub': pub, 'form': form})
 
+
