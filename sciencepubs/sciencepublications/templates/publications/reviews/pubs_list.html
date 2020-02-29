@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h3>Wybierz publikację do oceny</h3>
+
+{% if pubs_list %}
+<div>
+    {% for pub in pubs_list %}
+    <div>
+        <h4><a href="{% url 'reviews:pub_detail' pub.id %}">
+        {{ pub.publicationName }}
+        </a></h4>
+        <h5>{{ pub.review_set.count }} ocen</h5>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No wines are available.</p>
+{% endif %}
+{% endblock %}

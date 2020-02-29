@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 	'pubssearch30783',
 	'search_views',
     'excel30882',
+    'pubsreview30866',
     'publicationview30890',
     'django.contrib.admin',
     'django.contrib.auth',

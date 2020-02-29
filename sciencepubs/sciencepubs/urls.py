@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import url
 from django.urls import path, include
 from pubssearch30783.views import SearchList
 
@@ -24,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('detail/', include('detailView.urls')),
     path('pubssearch/', SearchList.as_view(), name="szukajka"),
+    url(r'^pubsreview/', include(('pubsreview30866.urls', 'reviews'), namespace='reviews')),
 ]

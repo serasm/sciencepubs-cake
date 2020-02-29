@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Pubs</h1>
+{% endblock %}
+
+{% block content %}
+{% if pubs_review %}
+<div>
+    {% for pubs in review.pub %}                                           ?????????
+    <div>
+    <h2>
+        <a href="{% url 'reviews:review_detail' review.id %}">
+        {{ review.pub }}                                              ??????
+    </a></h2>
+
+        <h1>{{pub.review_set.count}} reviews</h1>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No pubs are available.</p>
+{% endif %}
+{% endblock %}
