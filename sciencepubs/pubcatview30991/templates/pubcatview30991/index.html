@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>{{publicationCategoryName}}</h1>
+{% if PublicationCategory %}
+
+<ul>{% for post in PublicationCategory%}
+	<li><b>{{post.PublicationCategoryName}}</b> <i>(ID: {{post.PublicationCategoryId}})</i></li>
+
+		
+{% endfor %}
+</ul>
+{% else %}
+<p>No category are available.</p>
+{% endif %}
+
+{% endblock %}
+ 
+
