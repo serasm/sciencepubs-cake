@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from .models import Publication, PublicationCategory
 from pandas import read_excel
 import xlrd
-import requests
 # Create your views here.
 def index(request):
     return render(request, "excel30882/index.html")
@@ -30,13 +29,8 @@ def importCategoryExcel(request):
     a.PublicationCategoryName=x[0]
     a.PublicationCategoryId=x[1]
     a.save()
-    #api_url = "http://127.0.0.1:8000/api/sciencepublications/categories/"
-    #data = {'name': x[0],
-    #        'catind': x[1]}
-    #requests.post(api_url, data=data)
 
-
-  return HttpResponse(f"Dodano kategorie")
+  #return HttpResponse(f"Dodano kategorie")
 
 def importPublicationsExcel(request):
   Publication.objects.all().delete()
@@ -67,53 +61,14 @@ def importPublicationsExcel(request):
     a.publicationEissn2=x[6] 
     a.PublicationPoints=x[7]
     a.save()
-
-    categories = []
-
-    #api_url = "http://127.0.0.1:8000/api/sciencepublications/publications/"
-    
     i=0
     while i<44:
       if x[8+i]=='x':
         kategoria=PublicationCategory.objects.get(PublicationCategoryId=kategorieId[i])
-<<<<<<< HEAD
-        #categories_url = "http://127.0.0.1:8000/api/sciencepublications/categories/?q=%d" % kategorieId[i]
-        #kategoria = requests.get(categories_url)
         a.PublicationCategories.add(kategoria)
-        #categories.append(kategoria)
       i += 1
-
-    #data = {'name': x[1],
-     #     'issn': x[2],
-      #    'eissn': x[3],
-       #   'name2': x[4],
-        #  'issn2': x[5],
-         # 'eissn2': x[6],
-          #'points': x[7],
-          #'categories': categories,}
-    #requests.post(api_url, data=data)
     a.save()
-  return HttpResponse(f"dodano czasopisma z excela")
-=======
-        categories_url = "http://127.0.0.1:8000/api/sciencepublications/categories/?q=%d" % kategorieId[i]
-        kategoria = requests.get(categories_url)
-        #a.PublicationCategories.add(kategoria)
-        categories.append(kategoria)
-      i += 1
-
-    data = {'name': x[1],
-          'issn': x[2],
-          'eissn': x[3],
-          'name2': x[4],
-          'issn2': x[5],
-          'eissn2': x[6],
-          'points': x[7],
-          'categories': categories}
-    HttpResponse(data)
-    requests.post(api_url, data=data)
-    #a.save()
   #return HttpResponse(f"dodano czasopisma z excela")
->>>>>>> 8a2b137e22f335c39d14083ef2996d6b08659c70
 
 def importDataExcel(request):
     importCategoryExcel(request)
