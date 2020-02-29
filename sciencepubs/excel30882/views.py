@@ -4,7 +4,6 @@ from .models import Publication, PublicationCategory
 from pandas import read_excel
 import xlrd
 import requests
-import json
 # Create your views here.
 def index(request):
     return render(request, "excel30882/index.html")

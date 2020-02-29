@@ -1,51 +1,122 @@
-from .serializers import PublicationSerializer, CategorySerializer
-from .models import Publication, Category
-from rest_framework import  generics, mixins
-from django.db.models import Q
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Publication, PublicationCategory
+from pandas import read_excel
+import xlrd
+import requests
+import json
+# Create your views here.
+def index(request):
+    return render(request, "excel30882/index.html")
 
-class PublicationPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
-    lookup_field = 'id'
-    serializer_class = PublicationSerializer
+def importCategoryExcel(request):
+  PublicationCategory.objects.all().delete()
+  my_sheet='Kategorie'
+  file_name= 'data.xlsx'
+  workbook=xlrd.open_workbook(file_name)
+  worksheet = workbook.sheet_by_name(my_sheet)
+  total_cols=worksheet.ncols
+  total_rows=worksheet.nrows
+  table = list()
+  record = list()
+  for x in range(total_rows):
+    for y in range(total_cols):
+      record.append(worksheet.cell(x,y).value)
+    table.append(record)
+    record = []
+    x += 1
+  
+  for x in table:
+    a=PublicationCategory()
+    a.PublicationCategoryName=x[0]
+    a.PublicationCategoryId=x[1]
+    a.save()
+    #api_url = "http://127.0.0.1:8000/api/sciencepublications/categories/"
+    #data = {'name': x[0],
+    #        'catind': x[1]}
+    #requests.post(api_url, data=data)
 
-    def get_queryset(self):
-        #Publication.objects.all().delete()
-        qs = Publication.objects.all()
-        query = self.request.GET.get("q")
-        if query is not None:
-            qs = qs.filter(Q(name__icontains=query) | Q(issn__icontains=query)
-                           | Q(eissn__icontains=query) | Q(name2__icontains=query)).distinct()
 
-        return qs
+  return HttpResponse(f"Dodano kategorie")
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+def importPublicationsExcel(request):
+  Publication.objects.all().delete()
+  file_name= 'data.xlsx'
+  workbook=xlrd.open_workbook(file_name)
+  my_sheet='Czasopisma'
+  worksheet = workbook.sheet_by_name(my_sheet)
+  total_cols=worksheet.ncols
+  total_rows=worksheet.nrows
+  table = list()
+  record = list()
+  for x in range(total_rows):
+    for y in range(total_cols):
+      record.append(worksheet.cell(x,y).value)
+    table.append(record)
+    record = []
+    x += 1
 
-class PublicationRudView(generics.RetrieveUpdateDestroyAPIView):
-    lookup_field = 'id'
-    serializer_class = PublicationSerializer
+  kategorieId=[101,102,103,104,105,106,107,201,202,203,204,205,206,207,208,209,301,302,303,304,401,402,403,404,405,501,502,503,504,505,506,507,508,509,510,511,601,602,603,604,605,606,607,701]
 
-    def get_queryset(self):
-        return Publication.objects.all()
+  for x in table:
+    a=Publication()
+    a.publicationName=x[1]
+    a.publicationIssn=x[2]
+    a.publicationEissn=x[3]
+    a.publicationName2=x[4]
+    a.publicationIssn2=x[5]
+    a.publicationEissn2=x[6] 
+    a.PublicationPoints=x[7]
+    a.save()
 
-class CategoriesPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
-    lookup_field = 'id'
-    serializer_class = CategorySerializer
+    categories = []
 
-    def get_queryset(self):
-        #Category.objects.all().delete()
-        qs = Category.objects.all()
-        query = self.request.GET.get("q")
-        if query is not None:
-            qs = qs.filter(Q(catind__iexact=query) | Q(name__icontains=query)).distinct()
+    #api_url = "http://127.0.0.1:8000/api/sciencepublications/publications/"
+    
+    i=0
+    while i<44:
+      if x[8+i]=='x':
+        kategoria=PublicationCategory.objects.get(PublicationCategoryId=kategorieId[i])
+<<<<<<< HEAD
+        #categories_url = "http://127.0.0.1:8000/api/sciencepublications/categories/?q=%d" % kategorieId[i]
+        #kategoria = requests.get(categories_url)
+        a.PublicationCategories.add(kategoria)
+        #categories.append(kategoria)
+      i += 1
 
-        return qs
+    #data = {'name': x[1],
+     #     'issn': x[2],
+      #    'eissn': x[3],
+       #   'name2': x[4],
+        #  'issn2': x[5],
+         # 'eissn2': x[6],
+          #'points': x[7],
+          #'categories': categories,}
+    #requests.post(api_url, data=data)
+    a.save()
+  return HttpResponse(f"dodano czasopisma z excela")
+=======
+        categories_url = "http://127.0.0.1:8000/api/sciencepublications/categories/?q=%d" % kategorieId[i]
+        kategoria = requests.get(categories_url)
+        #a.PublicationCategories.add(kategoria)
+        categories.append(kategoria)
+      i += 1
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    data = {'name': x[1],
+          'issn': x[2],
+          'eissn': x[3],
+          'name2': x[4],
+          'issn2': x[5],
+          'eissn2': x[6],
+          'points': x[7],
+          'categories': categories}
+    HttpResponse(data)
+    requests.post(api_url, data=data)
+    #a.save()
+  #return HttpResponse(f"dodano czasopisma z excela")
+>>>>>>> 8a2b137e22f335c39d14083ef2996d6b08659c70
 
-class CategoriesRudView(generics.RetrieveUpdateDestroyAPIView):
-    lookup_field = 'id'
-    serializer_class = CategorySerializer
-
-    def get_queryset(self):
-        return  Category.objects.all()
+def importDataExcel(request):
+    importCategoryExcel(request)
+    importPublicationsExcel(request)
+    return HttpResponse(f"Dodano kategorie i czasopisma")
