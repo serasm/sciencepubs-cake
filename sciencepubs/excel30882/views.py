@@ -4,6 +4,7 @@ from .models import Publication, PublicationCategory
 from pandas import read_excel
 import xlrd
 import requests
+import json
 # Create your views here.
 def index(request):
     return render(request, "excel30882/index.html")
@@ -75,7 +76,7 @@ def importPublicationsExcel(request):
     i=0
     while i<44:
       if x[8+i]=='x':
-        #kategoria=PublicationCategory.objects.get(PublicationCategoryId=kategorieId[i])
+        kategoria=PublicationCategory.objects.get(PublicationCategoryId=kategorieId[i])
         categories_url = "http://127.0.0.1:8000/api/sciencepublications/categories/?q=%d" % kategorieId[i]
         kategoria = requests.get(categories_url)
         #a.PublicationCategories.add(kategoria)
@@ -89,7 +90,8 @@ def importPublicationsExcel(request):
           'issn2': x[5],
           'eissn2': x[6],
           'points': x[7],
-          'categories': categories,}
+          'categories': categories}
+    HttpResponse(data)
     requests.post(api_url, data=data)
     #a.save()
   #return HttpResponse(f"dodano czasopisma z excela")
