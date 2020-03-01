@@ -13,7 +13,6 @@ class Searchfilters(BaseFilter):
 
 class SearchList(SearchListView):
     model = Publication
-    paginate_by = 30
     template_name = "search.html"
 	
     form_class = SearchForm
