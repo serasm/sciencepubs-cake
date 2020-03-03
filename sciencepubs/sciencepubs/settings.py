@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+	'categorydisplay30991',
     'pubcategoryview30890',
     'detailView',
 	'pubssearch30783',

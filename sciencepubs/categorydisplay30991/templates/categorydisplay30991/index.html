@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+
+<h1>{{publicationName}}</h1>
+{% if Publication %}
+
+<ul>{% for post in Publication %}
+	<a href="{% url 'category' post.id %}"><li>{{post.publicationName}}</li></a>
+
+		
+{% endfor %}
+</ul>
+{% else %}
+<p>No category are available.</p>
+{% endif %}
+
+<p><a href="../">Powrót</a></p>
+{% endblock %}
+ 

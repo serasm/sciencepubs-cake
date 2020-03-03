@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^pubsreview/', include(('pubsreview30866.urls', 'reviews'), namespace='reviews')),
 	path('pubcatview/', include('pubcatview30991.urls')),
     path('pubcategoryview30890/', include('pubcategoryview30890.urls')),
+	path('categorydisplay30991/', include('categorydisplay30991.urls')),
 ]
