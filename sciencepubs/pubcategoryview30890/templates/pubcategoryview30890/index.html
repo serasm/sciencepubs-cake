@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+
+<h1>{{publicationCategoryName}}</h1>
+{% if PublicationCategory %}
+
+<ul>{% for post in PublicationCategory %}
+	<a href="{% url 'publication' post.id %}"><li>{{post.PublicationCategoryName}}</li></a>
+
+		
+{% endfor %}
+</ul>
+{% else %}
+<p>No category are available.</p>
+{% endif %}
+
+<p><a href="../">Powrót na stronę główną</a></p>
+{% endblock %}
+ 
