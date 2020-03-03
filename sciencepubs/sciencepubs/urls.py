@@ -27,4 +27,5 @@ urlpatterns = [
     path('pubssearch/', SearchList.as_view(), name="szukajka"),
     url(r'^pubsreview/', include(('pubsreview30866.urls', 'reviews'), namespace='reviews')),
 	path('pubcatview/', include('pubcatview30991.urls')),
+    path('pubcategoryview30890/', include('pubcategoryview30890.urls')),
 ]
