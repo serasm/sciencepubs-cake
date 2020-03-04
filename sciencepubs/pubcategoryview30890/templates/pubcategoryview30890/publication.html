@@ -7,10 +7,11 @@
 
 
 <h1>{{publicationName}}</h1>
-<h2>{{Kategoria}}</h2>
+<h2 class="list-group-item"style="text-align:center; text-transform: uppercase;
+font-size:40px;">{{Kategoria}}</h2>
 {% if Publication %}
-<ul>{% for post in Publication %}
-	<li>{{post.publicationName}}</li>
+<ul class="list-group">{% for post in Publication %}
+	<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">{{post.publicationName}}</li>
 
 
 
@@ -22,8 +23,8 @@
 {% endif %}
 
 
-<p><a href=".">Powrót do wyboru kategorii</a></p>
-<p><a href="../">Powrót do strony głównej</a></p>
+<a href="." class="list-group-item list-group-item-action list-group-item-primary" style="text-align:center; background-color: lightgreen">Powrót do wyboru kategorii</a></p>
+<a href="../" class="list-group-item list-group-item-action list-group-item-primary" style="text-align:center; background-color: lightgreen">Powrót do strony głównej</a></p>
 
 
 {% endblock %}

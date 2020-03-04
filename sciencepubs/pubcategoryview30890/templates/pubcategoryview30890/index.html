@@ -14,8 +14,9 @@
 <h1>{{publicationCategoryName}}</h1>
 {% if PublicationCategory %}
 
-<ul>{% for post in PublicationCategory %}
-	<a href="{% url 'publication' post.id %}"><li>{{post.PublicationCategoryName}}</li></a>
+<ul class="list-group">{% for post in PublicationCategory %}
+	<a href="{% url 'publication' post.id %}" class="list-group-item list-group-item-action list-group-item-primary">
+		<li style="text-align: center; text-transform: uppercase; list-style:none;" >{{post.PublicationCategoryName}}</li></a>
 
 		
 {% endfor %}
@@ -24,6 +25,6 @@
 <p>No category are available.</p>
 {% endif %}
 
-<p><a href="../">Powrót na stronę główną</a></p>
+<a href="../" class="list-group-item list-group-item-action list-group-item-primary" style="text-align:center; background-color: lightgreen">Powrót na stronę główną</a>
 {% endblock %}
  
