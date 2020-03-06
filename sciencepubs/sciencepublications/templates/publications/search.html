@@ -19,15 +19,18 @@
 			<th>Publication Second Name</th>
 			<th>Publication Second ISSN</th>
 			<th>Publication Points</th>
+			<th>Publication Categories</th>
         </tr>
         {% for object in object_list %}
         <tr>
-            <td>{{object.publicationName}}</td>
+            <td><a href=/categorydisplay30991/{{ object.id }}>{{object.publicationName}}</td>
 			<td>{{object.publicationIssn}}</td>
 			<td>{{object.publicationEissn}}</td>
 			<td>{{object.publicationName2}}</td>
 			<td>{{object.publicationIssn2}}</td>
 			<td>{{object.PublicationPoints}}</td>
+			<td>{% for category in object.PublicationCategories.all%}<a href=/pubcategoryview30890/{{ category.id }}> &bull; {{category.PublicationCategoryName}}<br/>
+			{% endfor %}</td>
         </tr>
         {% endfor %}
     </table>
