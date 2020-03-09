@@ -31,7 +31,7 @@
                 <td>{{czasopisma.publicationIssn2}}</td>
                 <td>{{czasopisma.publicationName2}}</td>
                 <td>{{czasopisma.PublicationPoints}}</td>
-                <td>{{czasopisma.PublicationCategories.values}}</td>
+                <td>{{czasopisma.PublicationCategories.all|cut:"<QuerySet ["|cut:"<PublicationCategory:"|cut:">"|cut:"]"}}</td>
 
             </tr>
             {% endfor %}
